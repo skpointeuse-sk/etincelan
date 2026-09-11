@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Etinc'Elan</title>
+<meta name="description" content="Contactez Carole Lecrinier par email, WhatsApp ou via le formulaire pour prendre rendez-vous en numérologie ou théta healing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Caveat:wght@600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="brand" href="index.html">Etinc<b>'</b>Elan</a>
+    <div class="navlinks" id="navlinks">
+      <a href="index.html">Accueil</a>
+      <a href="a-propos.html">Carole</a>
+      <a href="prestations.html">Prestations</a>
+      <a href="comprendre.html">Comprendre</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a class="navcta" href="contact.html">On en parle ? ✨</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="spark-layer"><canvas data-sparks="#F0AD3B,#F79C7B,#C9AEDD" data-count="30"></canvas></div>
+  <div class="blob blob2"></div>
+  <div class="wrap">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> · Contact</div>
+    <h1>Racontez-moi <span class="script">ce qui vous amène</span></h1>
+    <p class="lede">Un message, un appel de 15 minutes, et on trouve ensemble ce qui vous correspond le mieux.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="contact-panel">
+      <div class="contact-grid">
+        <div class="contact-side">
+          <span class="tag">On en parle ?</span>
+          <h2 style="margin-top:16px;font-size:clamp(1.5rem,2.8vw,2rem);">Deux façons simples de me joindre</h2>
+          <p style="margin-top:16px;">Choisissez ce qui vous convient — email, WhatsApp, ou le formulaire ci-contre.</p>
+          <div class="contact-chan">
+            <a href="mailto:contact@etincelan.fr">✉️ contact@etincelan.fr</a>
+            <a href="https://wa.me/33000000000" target="_blank" rel="noopener">💬 WhatsApp — réponse rapide</a>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="field-row">
+            <div class="field"><label for="fname">Prénom</label><input id="fname" name="fname" type="text" required></div>
+            <div class="field"><label for="lname">Nom</label><input id="lname" name="lname" type="text" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
+            <div class="field"><label for="phone">Téléphone (optionnel)</label><input id="phone" name="phone" type="tel"></div>
+          </div>
+          <div class="field">
+            <label for="service">Ce qui vous intéresse</label>
+            <select id="service" name="service">
+              <option value="numerologie">Numérologie</option>
+              <option value="theta">Théta Healing</option>
+              <option value="les-deux">Les deux / je ne sais pas encore</option>
+            </select>
+          </div>
+          <div class="field"><label for="message">Votre message</label><textarea id="message" name="message" placeholder="Dites-en un peu plus sur ce qui vous amène..." required></textarea></div>
+          <div class="consent"><input type="checkbox" id="consent" required style="margin-top:3px;"><label for="consent">J'accepte que ces informations soient utilisées par Etinc'Elan pour me recontacter.</label></div>
+          <button type="submit" class="btn btn-corail submit-btn">Envoyer avec le sourire 😊</button>
+          <div class="form-status" id="formStatus"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="brand">Etinc'Elan</span>
+        <p class="foot-desc">Numérologie et Théta Healing à distance, par Carole Lecrinier. Un accompagnement à taille humaine, en toute sécurité.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="a-propos.html">Carole</a></li>
+          <li><a href="prestations.html">Prestations</a></li>
+          <li><a href="comprendre.html">Comprendre</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Prestations</h4>
+        <ul>
+          <li><a href="prestations.html#numerologie">Numérologie — 60 €</a></li>
+          <li><a href="prestations.html#theta">Théta Healing — 50 €</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@etincelan.fr">contact@etincelan.fr</a></li>
+          <li><a href="https://wa.me/33000000000" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="contact.html">Formulaire de contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Etinc'Elan — Carole Lecrinier, auto-entreprise</div>
+      <div>Séances à distance uniquement</div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
