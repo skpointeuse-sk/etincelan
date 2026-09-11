@@ -221,8 +221,16 @@ section{padding:76px 0;}
 .contact-side p{color:#E4D6EE;margin-bottom:20px;}
 .contact-chan{display:flex;flex-direction:column;gap:14px;margin-top:24px;}
 .contact-chan a{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;
-  background:rgba(255,255,255,0.08);padding:16px 18px;border-radius:16px;transition:background .2s;}
-.contact-chan a:hover{background:rgba(255,255,255,0.16);}
+  background:rgba(255,255,255,0.08);padding:16px 18px;border-radius:16px;transition:background .25s ease, transform .25s ease, box-shadow .25s ease;}
+.contact-chan a:hover{background:rgba(255,255,255,0.16);transform:translateY(-4px) rotate(-0.5deg);box-shadow:0 12px 20px rgba(0,0,0,0.18);}
+.chan-ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;flex-shrink:0;background:#fff;color:var(--prune);box-shadow:0 4px 0 rgba(0,0,0,0.12);animation:chan-float 3.5s ease-in-out infinite;}
+.chan-ico svg{width:20px;height:20px;}
+.chan-ico-wa{background:#25D366;color:#fff;position:relative;}
+.chan-ico-wa::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid #25D366;opacity:0;animation:chan-pulse 2.6s ease-out infinite;}
+.contact-chan a:nth-child(2) .chan-ico{animation-delay:.4s;}
+@keyframes chan-float{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
+@keyframes chan-pulse{0%{transform:scale(0.9);opacity:0.55;}80%{transform:scale(1.35);opacity:0;}100%{opacity:0;}}
+@media (prefers-reduced-motion: reduce){.chan-ico{animation:none;}.chan-ico-wa::after{animation:none;}}
 
 form.contact-form{background:#fff;border-radius:26px;padding:30px;color:var(--prune);}
 .field{margin-bottom:16px;display:flex;flex-direction:column;gap:6px;}
@@ -254,6 +262,11 @@ footer .brand{color:#fff;font-size:1.6rem;display:block;margin-bottom:10px;}
 footer .foot-desc{font-size:0.88rem;line-height:1.6;max-width:32ch;}
 footer h4{color:#fff;font-family:var(--sans);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:14px;}
 footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+footer .foot-ico{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:8px;flex-shrink:0;vertical-align:-6px;color:rgba(255,255,255,0.75);}
+footer .foot-ico svg{width:15px;height:15px;}
+footer .foot-ico-wa{color:#25D366;}
+footer a:hover .foot-ico{color:#fff;}
+footer a:hover .foot-ico-wa{color:#25D366;}
 footer ul a{text-decoration:none;font-size:0.92rem;}
 footer ul a:hover{color:#fff;}
 .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:22px;font-size:0.8rem;}
