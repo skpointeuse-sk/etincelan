@@ -47,8 +47,8 @@ function initFootprints(canvas, opts){
   function buildPath(){
     path = [];
     const segments = 500;
-    const baseY = h * 0.6;
-    const amp = h * 0.16;
+    const baseY = h - 46;   // ancré tout en bas du hero, loin du texte
+    const amp = 10;         // légère ondulation, reste dans une bande étroite en bas
     for(let i=0; i<=segments; i++){
       const t = i/segments;
       const x = t * w;
