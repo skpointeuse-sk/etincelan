@@ -15,14 +15,23 @@
   }
 })();
 
-// ---- Étincelles animées en fond (canvas léger, sans dépendance) ----
-function initSparks(canvas, colors, opts){
+// ---- Empreintes de pas animées dans le sable (canvas léger, sans dépendance) ----
+function initFootprints(canvas, opts){
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  let w, h, particles = [];
+  let w, h;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const count = opts && opts.count ? opts.count : 40;
+  const color = (opts && opts.color) || '#3B2A20';
   const container = canvas.closest('.spark-layer') ? canvas.closest('.spark-layer').parentElement : canvas.parentElement;
+
+  const STEP_SPACING = 42;      // distance parcourue entre deux empreintes
+  const LATERAL_OFFSET = 8;     // écart gauche/droite façon démarche naturelle
+  const STEP_INTERVAL = 480;    // ms entre l'apparition de deux empreintes
+  const FADE_IN = 400, HOLD = 3000, FADE_OUT = 2200;
+  const LIFE = FADE_IN + HOLD + FADE_OUT;
+
+  let path = [], cumLen = [], totalLen = 0, positions = [];
+  let steps = [], nextIndex = 0, lastStepAt = 0;
 
   function resize(){
     w = container.offsetWidth;
@@ -31,55 +40,104 @@ function initSparks(canvas, colors, opts){
     canvas.width = w * devicePixelRatio;
     canvas.height = h * devicePixelRatio;
     ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    buildPath();
   }
-  function makeParticle(){
-    return {
-      x: Math.random()*w,
-      y: h + Math.random()*40,
-      r: 1.3 + Math.random()*2.4,
-      speed: 0.22 + Math.random()*0.5,
-      drift: (Math.random()-0.5)*0.35,
-      alpha: 0.22 + Math.random()*0.5,
-      twinkle: Math.random()*Math.PI*2,
-      color: colors[Math.floor(Math.random()*colors.length)]
-    };
+
+  // Chemin sinueux façon trace qui serpente entre les dunes, de gauche à droite
+  function buildPath(){
+    path = [];
+    const segments = 500;
+    const baseY = h * 0.6;
+    const amp = h * 0.16;
+    for(let i=0; i<=segments; i++){
+      const t = i/segments;
+      const x = t * w;
+      const y = baseY + Math.sin(t*Math.PI*2.4) * amp * Math.sin(t*Math.PI*0.9 + 0.3);
+      path.push({x, y});
+    }
+    cumLen = [0];
+    totalLen = 0;
+    for(let i=1; i<path.length; i++){
+      const dx = path[i].x - path[i-1].x, dy = path[i].y - path[i-1].y;
+      totalLen += Math.sqrt(dx*dx + dy*dy);
+      cumLen.push(totalLen);
+    }
+    positions = [];
+    let side = -1;
+    for(let d = 20; d < totalLen - 20; d += STEP_SPACING){
+      let idx = 0;
+      while(idx < cumLen.length - 1 && cumLen[idx] < d) idx++;
+      const a = path[Math.max(0, idx-1)], b = path[idx];
+      const angle = Math.atan2(b.y - a.y, b.x - a.x);
+      const nx = -Math.sin(angle), ny = Math.cos(angle);
+      positions.push({
+        x: b.x + nx * LATERAL_OFFSET * side,
+        y: b.y + ny * LATERAL_OFFSET * side,
+        angle
+      });
+      side *= -1;
+    }
+    steps = [];
+    nextIndex = 0;
   }
-  function init(){
-    resize();
-    particles = Array.from({length: count}, () => {
-      const p = makeParticle();
-      p.y = Math.random()*h;
-      return p;
-    });
+
+  function drawFootprint(p, alpha){
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.angle);
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    // sole
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 4.6, 8.2, 0, 0, Math.PI*2);
+    ctx.fill();
+    // heel accent (légèrement plus étroit, pour casser la symétrie)
+    ctx.beginPath();
+    ctx.ellipse(-6.4, 0, 3, 4.4, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
   }
-  function step(){
+
+  function frame(time){
     if(w && h){
-      ctx.clearRect(0,0,w,h);
-      particles.forEach(p => {
-        p.y -= p.speed;
-        p.x += p.drift;
-        p.twinkle += 0.03;
-        if(p.y < -10){ Object.assign(p, makeParticle()); p.y = h + 10; }
-        const a = p.alpha * (0.6 + 0.4*Math.sin(p.twinkle));
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = a;
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = p.color;
-        ctx.fill();
+      ctx.clearRect(0, 0, w, h);
+
+      if(time - lastStepAt > STEP_INTERVAL && positions.length){
+        steps.push(Object.assign({born: time}, positions[nextIndex]));
+        nextIndex = (nextIndex + 1) % positions.length;
+        if(nextIndex === 0){
+          // petite pause avant qu'une nouvelle traversée ne recommence
+          lastStepAt = time + 1600;
+        } else {
+          lastStepAt = time;
+        }
+      }
+
+      steps = steps.filter(s => time - s.born < LIFE);
+      steps.forEach(s => {
+        const age = time - s.born;
+        let alpha;
+        if(age < FADE_IN) alpha = (age / FADE_IN);
+        else if(age < FADE_IN + HOLD) alpha = 1;
+        else alpha = 1 - ((age - FADE_IN - HOLD) / FADE_OUT);
+        drawFootprint(s, Math.max(0, alpha) * 0.32);
       });
       ctx.globalAlpha = 1;
     }
-    if(!reduceMotion) requestAnimationFrame(step);
+    if(!reduceMotion) requestAnimationFrame(frame);
   }
+
   window.addEventListener('resize', resize);
-  init();
-  if(!reduceMotion){ requestAnimationFrame(step); } else { step(); }
+  resize();
+  if(!reduceMotion){
+    requestAnimationFrame(frame);
+  } else {
+    // Version statique et accessible : quelques empreintes fixes, sans animation
+    positions.slice(0, 10).forEach(p => drawFootprint(p, 0.28));
+  }
 }
-document.querySelectorAll('[data-sparks]').forEach(canvas => {
-  const colors = (canvas.dataset.sparks || '').split(',').filter(Boolean);
-  initSparks(canvas, colors.length ? colors : ['#F0714A','#F0AD3B','#C9AEDD'], {count: Number(canvas.dataset.count) || 40});
+document.querySelectorAll('[data-footprints]').forEach(canvas => {
+  initFootprints(canvas, {color: canvas.dataset.footprints || '#3B2A20'});
 });
 
 // ---- Léger tilt interactif sur la carte témoignage du hero ----
@@ -117,7 +175,7 @@ document.querySelectorAll('[data-sparks]').forEach(canvas => {
   form.addEventListener('submit', function(e){
     e.preventDefault();
     status.textContent = "Merci ! 🌟 Votre message est bien arrivé, Carole vous répond très vite.";
-    status.style.color = "#8C5FA8";
+    status.style.color = "#B0552A";
     form.reset();
     // TODO backend: brancher sur Supabase (table "contacts") une fois le projet connecté
   });
