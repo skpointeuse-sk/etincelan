@@ -168,15 +168,7 @@ document.querySelectorAll('[data-footprints]').forEach(canvas => {
 })();
 
 // ---- Formulaire de contact ----
-(function(){
-  const form = document.getElementById('contactForm');
-  if(!form) return;
-  const status = document.getElementById('formStatus');
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    status.textContent = "Merci ! 🌟 Votre message est bien arrivé, Carole vous répond très vite.";
-    status.style.color = "#B0552A";
-    form.reset();
-    // TODO backend: brancher sur Supabase (table "contacts") une fois le projet connecté
-  });
-})();
+// Le formulaire est maintenant géré nativement par Formspree (action="https://formspree.io/f/xdeknkvg" method="POST" dans contact.html).
+// Aucun JavaScript n'est nécessaire ici : Formspree redirige l'utilisateur vers sa page de confirmation.
+// Si tu veux plus tard afficher un message personnalisé sans quitter la page,
+// il faudra utiliser l'AJAX de Formspree (@formspree/ajax) — voir https://formspree.io/f/xdeknkvg
