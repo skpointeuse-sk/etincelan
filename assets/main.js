@@ -167,63 +167,16 @@ document.querySelectorAll('[data-footprints]').forEach(canvas => {
   revealEls.forEach(el => io.observe(el));
 })();
 
-// ---- Formulaire de contact via AJAX Formspree (reste sur la page) ----
+// ---- Formulaire de contact ----
 (function(){
   const form = document.getElementById('contactForm');
   if(!form) return;
   const status = document.getElementById('formStatus');
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const originalBtnText = submitBtn ? submitBtn.textContent : '';
-
-  form.addEventListener('submit', async function(e){
+  form.addEventListener('submit', function(e){
     e.preventDefault();
-
-    if(!form.checkValidity()){
-      form.reportValidity();
-      return;
-    }
-
-    if(status){
-      status.textContent = "Envoi en cours…";
-      status.style.color = "#B0552A";
-    }
-    if(submitBtn){
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Envoi en cours…";
-    }
-
-    try {
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if(response.ok){
-        if(status){
-          status.textContent = "Merci ! 🌟 Votre message est bien arrivé, Carole vous répond très vite.";
-          status.style.color = "#B0552A";
-        }
-        form.reset();
-      } else {
-        const data = await response.json().catch(() => ({}));
-        const msg = (data.errors && data.errors.map(err => err.message).join(', '))
-          || "Oups, une erreur est survenue. Réessayez ou écrivez à lecrinier.carole@gmail.com.";
-        if(status){
-          status.textContent = msg;
-          status.style.color = "#c0392b";
-        }
-      }
-    } catch(err){
-      if(status){
-        status.textContent = "Connexion impossible. Vérifiez votre réseau ou écrivez à lecrinier.carole@gmail.com.";
-        status.style.color = "#c0392b";
-      }
-    } finally {
-      if(submitBtn){
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-      }
-    }
+    status.textContent = "Merci ! 🌟 Votre message est bien arrivé, Carole vous répond très vite.";
+    status.style.color = "#B0552A";
+    form.reset();
+    // TODO backend: brancher sur Supabase (table "contacts") une fois le projet connecté
   });
 })();
