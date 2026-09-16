@@ -307,6 +307,22 @@ footer ul a{text-decoration:none;font-size:0.92rem;}
 footer ul a:hover{color:#fff;}
 .foot-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:22px;font-size:0.8rem;}
 
+/* ---- BANDEAU DUNE + SOLEIL (séparateur photo réaliste entre deux sections) ---- */
+.dune-divider{
+  position:relative;
+  height:260px;
+  background-image:url('img/dune-divider.jpg');
+  background-size:cover;
+  background-position:center 55%;
+  overflow:hidden;
+}
+.dune-divider::before, .dune-divider::after{
+  content:"";position:absolute;left:0;right:0;height:70px;pointer-events:none;
+}
+.dune-divider::before{top:0;background:linear-gradient(180deg, var(--sable) 0%, rgba(247,236,215,0) 100%);}
+.dune-divider::after{bottom:0;background:linear-gradient(0deg, var(--sable) 0%, rgba(247,236,215,0) 100%);}
+@media (max-width:760px){ .dune-divider{height:170px;} .dune-divider::before, .dune-divider::after{height:44px;} }
+
 /* ---- REVEAL ---- */
 .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease, transform .55s ease;}
 .reveal.in{opacity:1;transform:none;}
