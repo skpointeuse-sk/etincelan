@@ -52,6 +52,7 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;padding:1
 .navcta{
   background:linear-gradient(135deg,var(--or) 0%, var(--corail) 100%);color:#fff !important;font-weight:800;font-size:0.92rem;
   padding:13px 34px;border-radius:999px;text-decoration:none;white-space:nowrap;letter-spacing:0.1px;
+  margin-left:16px;
   box-shadow:0 6px 14px rgba(176,85,42,0.35);transition:transform .18s ease, box-shadow .18s ease;
 }
 .navcta::after{display:none !important;}
@@ -76,7 +77,7 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;padding:1
   .navlinks.open{transform:translateY(0);opacity:1;pointer-events:auto;}
   .navlinks a{padding:14px 4px;border-bottom:1px solid rgba(59,42,32,0.08);}
   .navlinks a::after{display:none;}
-  .navcta{margin-top:14px;text-align:center;}
+  .navcta{margin-top:14px;margin-left:0;text-align:center;}
   .burger{display:flex;}
 }
 
@@ -89,10 +90,6 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;padding:1
   background-image:linear-gradient(180deg, rgba(43,30,22,0.6) 0%, rgba(43,30,22,0.32) 45%, rgba(43,30,22,0.6) 82%, rgba(43,30,22,0.15) 100%), url('img/desert-hero.jpg');
   background-size:cover;background-position:center 60%;
   position:relative;
-}
-.page-hero.photo::after{
-  content:"";position:absolute;left:0;right:0;bottom:0;height:130px;pointer-events:none;
-  background:linear-gradient(0deg, var(--sable) 0%, rgba(247,236,215,0) 100%);
 }
 .page-hero.photo .tag.eyebrow{background:rgba(255,255,255,0.16);color:#fff;backdrop-filter:blur(3px);}
 .page-hero.photo h1{color:#fff;}
