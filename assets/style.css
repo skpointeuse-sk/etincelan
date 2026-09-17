@@ -51,7 +51,7 @@ nav.wrap{display:flex;align-items:center;justify-content:space-between;padding:1
 .navlinks a.active::after{width:100%;}
 .navcta{
   background:linear-gradient(135deg,var(--or) 0%, var(--corail) 100%);color:#fff !important;font-weight:800;font-size:0.92rem;
-  padding:15px 42px;border-radius:999px;text-decoration:none;white-space:nowrap;letter-spacing:0.1px;
+  padding:15px 52px;border-radius:999px;text-decoration:none;white-space:nowrap;letter-spacing:0.1px;
   margin-left:16px;
   box-shadow:0 6px 14px rgba(176,85,42,0.35);transition:transform .18s ease, box-shadow .18s ease;
 }
