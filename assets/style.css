@@ -298,6 +298,24 @@ form.contact-form{background:rgba(253,246,232,0.95);backdrop-filter:blur(10px);-
 
 /* ---- CTA BAND ---- */
 .cta-band{background:linear-gradient(120deg, var(--corail), var(--or));border-radius:32px;padding:48px 40px;text-align:center;color:#fff;}
+
+.google-reviews-card{
+  background:#fff;border-radius:32px;padding:44px 40px;text-align:center;
+  max-width:640px;margin:0 auto;position:relative;overflow:hidden;
+  box-shadow:0 18px 40px rgba(59,42,32,0.12);
+}
+.google-reviews-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg, var(--ciel), var(--or), var(--corail));
+}
+.google-reviews-icon{
+  width:64px;height:64px;border-radius:50%;background:var(--sable);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  box-shadow:0 6px 16px rgba(59,42,32,0.1);
+}
+.google-reviews-card h2{color:var(--nuit);margin-bottom:14px;}
+.google-reviews-card p{color:var(--texte);max-width:44ch;margin:0 auto 26px;line-height:1.6;}
+.google-reviews-btn{display:inline-flex;align-items:center;gap:10px;}
 .cta-band h2{color:#fff;font-size:clamp(1.5rem,3vw,2rem);}
 .cta-band p{color:rgba(255,255,255,0.9);margin-top:12px;}
 .cta-band .btn-corail{background:#fff;color:var(--corail);box-shadow:0 8px 20px rgba(0,0,0,0.15);margin-top:22px;}
