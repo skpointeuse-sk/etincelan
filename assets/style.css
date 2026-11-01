@@ -204,11 +204,12 @@ section{padding:76px 0;}
 .about-body p.lead{color:var(--nuit);font-size:1.12rem;font-weight:600;}
 
 /* ---- CERTIFICATIONS ---- */
-.cert-showcase{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.cert-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+@media (max-width:1100px){ .cert-showcase{grid-template-columns:1fr 1fr;} }
 @media (max-width:800px){ .cert-showcase{grid-template-columns:1fr;} }
 .cert-frame{background:#fff;border-radius:24px;padding:16px;box-shadow:0 18px 34px rgba(59,42,32,0.14);transition:transform .25s ease;}
 .cert-frame:hover{transform:translateY(-4px);}
-.cert-frame img{border-radius:14px;border:1px solid rgba(59,42,32,0.08);}
+.cert-frame img{width:100%;height:auto;display:block;border-radius:14px;border:1px solid rgba(59,42,32,0.08);}
 .cert-frame .cert-caption{padding:16px 8px 4px;text-align:center;}
 .cert-frame .cert-caption h3{font-size:1.05rem;color:var(--ciel);}
 .cert-frame .cert-caption p{font-size:0.85rem;color:var(--texte);margin-top:4px;}
