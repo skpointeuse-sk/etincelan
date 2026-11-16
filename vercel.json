@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/a-propos.html", "destination": "/", "permanent": true },
+    { "source": "/comprendre.html", "destination": "/prestations.html#theta", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true }
+  ]
+}
